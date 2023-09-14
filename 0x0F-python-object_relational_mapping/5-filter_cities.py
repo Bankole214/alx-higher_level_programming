@@ -22,19 +22,17 @@ if __name__ == "__main__":
 
     # Execute a SELECT query to fetch data
     my_cursor.execute(
-        """SELECT cities.id, cities.name, states.name
-        FROM cities
-        JOIN states
-        ON states.id = cities.state_id
+        """SELECT * FROM cities
+        INNER JOIN states
+        ON cities.state_id = states.id
         ORDER BY cities.id"""
     )
 
-    # fetch all the data returned by the query
-    my_data = my_cursor.fetchall()
+    print(", ".join([city[2]
+                     for city in my_cursor.fetchall()
+                     if city[4] == argv[4]])
 
-    # Iterate through the fetched data and print each row
-    for row in my_data:
-        print(row)
+          )
 
     # Close all cursors
     my_cursor.close()
